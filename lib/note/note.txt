@@ -1,0 +1,5 @@
+there are separate widget for get ios features in flutter
+    MaterialApp -> CupertinoApp
+    Scaffold -> CupertinoPageScaffold
+
+    
