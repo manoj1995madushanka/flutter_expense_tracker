@@ -1,3 +1,4 @@
+import 'package:expense_tracker/transaction.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,6 +16,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final List<Transaction> transactions = [
+    Transaction(
+      id: "t1",
+      title: "New Shoes",
+      amount: 69.99,
+      date: DateTime.now(),
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +32,15 @@ class MyHomePage extends StatelessWidget {
           title: Text("flutter app"),
         ),
         body: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Card(
-              color: Colors.blue,
-              child: Container(
-                width: double.infinity,
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
                 child: Text("CHART!"),
+                elevation: 5,
               ),
-              elevation: 5,
             ),
             Card(
               child: Text("List of TX"),
