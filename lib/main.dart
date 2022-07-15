@@ -40,7 +40,8 @@ class MyHomePage extends StatelessWidget {
           title: Text("flutter app"),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               width: double.infinity,
@@ -51,7 +52,13 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             Card(
-              child: Text("List of TX"),
+              elevation: 5,
+              child: Column(
+                children: [
+                  TextField(),
+                  TextField(),
+                ],
+              ),
             ),
             Column(
               children: transactions.map((tx) {
