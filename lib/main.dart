@@ -1,6 +1,7 @@
 import 'package:expense_tracker/models/transaction.dart';
 import 'package:expense_tracker/widgets/new_transaction.dart';
 import 'package:expense_tracker/widgets/transaction_list.dart';
+import 'package:expense_tracker/widgets/user_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-
+            UserTransaction(),
           ],
         ));
   }
