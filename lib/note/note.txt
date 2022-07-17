@@ -2,4 +2,7 @@ there are separate widget for get ios features in flutter
     MaterialApp -> CupertinoApp
     Scaffold -> CupertinoPageScaffold
 
+dart final objects actually contain pointer to that object so we can not re initiate that final variable
+but we can modify that accordingly
+for example we can add new elements to final list (user_transaction file _addTransaction method)
     
