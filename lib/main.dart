@@ -19,13 +19,61 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  // our changes will not reflet in UI because this is stateless widget
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
 
-  /*String titleInput="";
-  String amountInput="";*/
-  final titleController = new TextEditingController();
-  final amountController = new TextEditingController();
+class _MyHomePageState extends State<MyHomePage> {
+  // our changes will not reflet in UI because this is stateless widget
+  /*final titleController = new TextEditingController();
+  final amountController = new TextEditingController();*/
+
+  final List<Transaction> _userTransaction = [
+    Transaction(
+      id: "t1",
+      title: "New Shoes",
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "t2",
+      title: "Weekly Groceries",
+      amount: 16.53,
+      date: DateTime.now(),
+    )
+  ];
+
+  void _addNewTransaction(String title, double amount) {
+    final newTx = new Transaction(
+        id: DateTime.now().toString(),
+        title: title,
+        amount: amount,
+        date: DateTime.now());
+
+    setState(() {
+      _userTransaction.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    /*
+    * showModelBottomSheet is flutter built in method
+    * it takes context and builder as arguments
+    * context will build the content of builder
+    * */
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        // this gestureDetector will solve the bottom sheet tap close issue
+        return GestureDetector(
+          child: NewTransaction(_addNewTransaction),
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +82,7 @@ class MyHomePage extends StatelessWidget {
         title: Text("flutter app"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => _startAddNewTransaction(context),
             icon: Icon(Icons.add),
           ),
         ],
@@ -53,13 +101,13 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTransaction(),
+            TransactionList(_userTransaction),
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _startAddNewTransaction(context),
         child: Icon(Icons.add),
       ),
     );
