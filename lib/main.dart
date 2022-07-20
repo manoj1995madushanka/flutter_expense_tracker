@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Ëxpense Tracker",
+      title: "Personal Expenses",
       home: MyHomePage(),
     );
   }
@@ -79,7 +79,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("flutter app"),
+        centerTitle: true,
+        title: Text(
+          "Personal Expenses",
+          textAlign: TextAlign.center,
+        ),
         actions: [
           IconButton(
             onPressed: () => _startAddNewTransaction(context),
