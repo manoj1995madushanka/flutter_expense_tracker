@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addNexTransaction;
 
   NewTransaction(this.addNexTransaction);
 
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titleController = new TextEditingController();
+
   final amountController = new TextEditingController();
 
   void submitData() {
@@ -21,8 +27,11 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    this.addNexTransaction(
+    // this.widget need to access parent class pointer method
+    this.widget.addNexTransaction(
         titleController.text, double.parse(amountController.text));
+
+    Navigator.of(context).pop();
   }
 
   @override
