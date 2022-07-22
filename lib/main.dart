@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final amountController = new TextEditingController();*/
 
   final List<Transaction> _userTransaction = [
-    Transaction(
+    /*Transaction(
       id: "t1",
       title: "New Shoes",
       amount: 69.99,
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: "Weekly Groceries",
       amount: 16.53,
       date: DateTime.now(),
-    )
+    )*/
   ];
 
   void _addNewTransaction(String title, double amount) {
