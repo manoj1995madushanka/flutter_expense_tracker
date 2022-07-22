@@ -19,7 +19,17 @@ class TransactionList extends StatelessWidget {
                   "No transactions added yet!",
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                Image.asset('assets/images/waiting.png', ),
+                // this SizedBox do not accespt childs that is used for add space between two widgets
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 200,
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ],
             )
           : ListView.builder(
