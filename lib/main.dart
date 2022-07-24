@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/transaction.dart';
+import 'package:expense_tracker/widgets/chart.dart';
 import 'package:expense_tracker/widgets/new_transaction.dart';
 import 'package:expense_tracker/widgets/transaction_list.dart';
 import 'package:expense_tracker/widgets/user_transaction.dart';
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final amountController = new TextEditingController();*/
 
   final List<Transaction> _userTransaction = [
-    /*Transaction(
+    Transaction(
       id: "t1",
       title: "New Shoes",
       amount: 69.99,
@@ -61,8 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
       title: "Weekly Groceries",
       amount: 16.53,
       date: DateTime.now(),
-    )*/
+    )
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _userTransaction.where((element) {
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTx = new Transaction(
@@ -117,14 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            /*Container(
               width: double.infinity,
               child: Card(
                 color: Colors.blue,
                 child: Text("CHART!"),
                 elevation: 5,
               ),
-            ),
+            ),*/
+            Chart(_recentTransactions),
             TransactionList(_userTransaction),
           ],
         ),
