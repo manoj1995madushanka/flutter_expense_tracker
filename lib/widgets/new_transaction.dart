@@ -14,7 +14,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = new TextEditingController();
 
-  void submitData() {
+  void _submitData() {
     final title = titleController.text;
     final amount = (amountController.text.isNotEmpty)
         ? double.parse(amountController.text)
@@ -46,7 +46,7 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               /*onChanged: (value) {
                         titleInput = value;
                       },*/
@@ -56,7 +56,7 @@ class _NewTransactionState extends State<NewTransaction> {
               controller: amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) =>
-                  submitData(), // here _ means we ignore value here
+                  _submitData(), // here _ means we ignore value here
               //and pass it to arrow function
 
               /*onChanged: (value) {
@@ -84,7 +84,7 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
             ),
             ElevatedButton(
-              onPressed: submitData,
+              onPressed: _submitData,
               style: ElevatedButton.styleFrom(
                 primary: Theme.of(context).primaryColor, //background
                 onPrimary:
