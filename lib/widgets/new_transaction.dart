@@ -83,14 +83,14 @@ class _NewTransactionState extends State<NewTransaction> {
                 ],
               ),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: submitData,
-              child: Text(
-                'Add Transaction',
-                style: TextStyle(
-                  color: Colors.purple,
-                ),
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).primaryColor, //background
+                onPrimary:
+                    Theme.of(context).textTheme.button?.color, //font color
               ),
+              child: Text('Add Transaction'),
             ),
           ],
         ),
