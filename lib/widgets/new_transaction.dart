@@ -37,6 +37,7 @@ class _NewTransactionState extends State<NewTransaction> {
   }
 
   void _presentDatePicker() {
+    // this showDatePicker return a future
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
