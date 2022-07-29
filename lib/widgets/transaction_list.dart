@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height is mandotory when we use listView
-      height: 300,
+      height: MediaQuery.of(context).size.height*0.7,
       child: transactions.isEmpty
           ? Column(
               children: [
