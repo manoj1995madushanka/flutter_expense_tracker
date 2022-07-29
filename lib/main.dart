@@ -114,20 +114,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Personal Expenses",
-          textAlign: TextAlign.center,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          ),
-        ],
+    final appBar = AppBar(
+      centerTitle: true,
+      title: Text(
+        "Personal Expenses",
+        textAlign: TextAlign.center,
       ),
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        ),
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       // singleChildScrollView add scroll functionality to column
       body: SingleChildScrollView(
         child: Column(
@@ -142,8 +143,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 elevation: 5,
               ),
             ),*/
-            Chart(_recentTransactions),
-            TransactionList(_userTransaction,_deleteTransaction),
+
+            // MediaQuery.of(context).padding.top) : this is notification bar height
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.4,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.6,
+              child: TransactionList(_userTransaction, _deleteTransaction),
+            ),
           ],
         ),
       ),

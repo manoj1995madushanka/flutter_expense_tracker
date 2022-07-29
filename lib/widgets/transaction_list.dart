@@ -10,68 +10,65 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // height is mandotory when we use listView
-      height: MediaQuery.of(context).size.height*0.7,
-      child: transactions.isEmpty
-          ? Column(
-              children: [
-                Text(
-                  "No transactions added yet!",
-                  style: Theme.of(context).textTheme.headline6,
+    return transactions.isEmpty
+        ? Column(
+            children: [
+              Text(
+                "No transactions added yet!",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              // this SizedBox do not accespt childs that is used for add space between two widgets
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 200,
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
                 ),
-                // this SizedBox do not accespt childs that is used for add space between two widgets
-                SizedBox(
-                  height: 10,
+              ),
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (context, index) {
+              // new implementation
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 5,
                 ),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            )
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                // new implementation
-                return Card(
-                  elevation: 5,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: FittedBox(
-                          child: Text('\$${transactions[index].amount}'),
-                        ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FittedBox(
+                        child: Text('\$${transactions[index].amount}'),
                       ),
                     ),
-                    title: Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMd().format(transactions[index].date),
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () {
-                        deleteFn(transactions[index].id);
-                      },
-                    ),
                   ),
-                );
+                  title: Text(
+                    transactions[index].title,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  subtitle: Text(
+                    DateFormat.yMMMd().format(transactions[index].date),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    color: Theme.of(context).errorColor,
+                    onPressed: () {
+                      deleteFn(transactions[index].id);
+                    },
+                  ),
+                ),
+              );
 
-                // below is previous implementation
+              // below is previous implementation
 
-                /*return Card(
+              /*return Card(
                   child: Row(
                     children: [
                       Container(
@@ -118,9 +115,8 @@ class TransactionList extends StatelessWidget {
                     ],
                   ),
                 );*/
-              },
-              itemCount: transactions.length,
-            ),
-    );
+            },
+            itemCount: transactions.length,
+          );
   }
 }
