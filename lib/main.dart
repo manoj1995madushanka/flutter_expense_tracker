@@ -5,8 +5,15 @@ import 'package:expense_tracker/widgets/transaction_list.dart';
 import 'package:expense_tracker/widgets/user_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  // above lines are controlled application orientation
   runApp(MyApp());
 }
 
