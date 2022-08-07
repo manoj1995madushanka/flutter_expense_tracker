@@ -7,11 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  // below lines used to check device orientation
+  /*WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]);
+  ]);*/
   // above lines are controlled application orientation
   runApp(MyApp());
 }
@@ -122,6 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     final appBar = AppBar(
       centerTitle: true,
       title: Text(
