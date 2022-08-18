@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expense_tracker/models/transaction.dart';
 import 'package:expense_tracker/widgets/chart.dart';
 import 'package:expense_tracker/widgets/new_transaction.dart';
@@ -124,9 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    
-    final isLandScape =
-        mediaQuery.orientation == Orientation.landscape;
+
+    final isLandScape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       centerTitle: true,
@@ -174,6 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // below adaptive method will automatically convert widget into
                   // platform default looks
                   Switch.adaptive(
+                    activeColor: Theme.of(context).colorScheme.secondary,
                     value: _showChart,
                     onChanged: (val) {
                       setState(() {
@@ -207,10 +209,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _startAddNewTransaction(context),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () => _startAddNewTransaction(context),
+              child: Icon(Icons.add),
+            ),
     );
   }
 }
