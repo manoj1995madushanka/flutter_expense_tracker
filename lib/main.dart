@@ -129,19 +129,41 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
 
-    final appBar = AppBar(
-      centerTitle: true,
-      title: Text(
-        "Personal Expenses",
-        textAlign: TextAlign.center,
-      ),
-      actions: [
-        IconButton(
-          onPressed: () => _startAddNewTransaction(context),
-          icon: Icon(Icons.add),
-        ),
-      ],
-    );
+    final appBar = Platform.isIOS
+        ? PreferredSize(
+            preferredSize: const Size.fromHeight(100),
+            child: CupertinoNavigationBar(
+              middle: Text(
+                "Personal Expenses",
+                textAlign: TextAlign.center,
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    child: Icon(CupertinoIcons.add),
+                    onTap: () => _startAddNewTransaction(context),
+                  )
+                ],
+              ),
+            ),
+          )
+        : PreferredSize(
+            preferredSize: const Size.fromHeight(100),
+            child: AppBar(
+              centerTitle: true,
+              title: Text(
+                "Personal Expenses",
+                textAlign: TextAlign.center,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () => _startAddNewTransaction(context),
+                  icon: Icon(Icons.add),
+                ),
+              ],
+            ),
+          );
 
     final txListWidget = Container(
       height: (mediaQuery.size.height -
@@ -151,10 +173,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: TransactionList(_userTransaction, _deleteTransaction),
     );
 
-    return Scaffold(
-      appBar: appBar,
-      // singleChildScrollView add scroll functionality to column
-      body: SingleChildScrollView(
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -171,7 +191,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Show Chart"),
+                  Text(
+                    "Show Chart",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                   // below adaptive method will automatically convert widget into
                   // platform default looks
                   Switch.adaptive(
@@ -208,13 +231,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              onPressed: () => _startAddNewTransaction(context),
-              child: Icon(Icons.add),
-            ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: CupertinoNavigationBar(
+              middle: Text(
+                "Personal Expenses",
+                textAlign: TextAlign.center,
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    child: Icon(CupertinoIcons.add),
+                    onTap: () => _startAddNewTransaction(context),
+                  )
+                ],
+              ),
+            ),
+          )
+        : Scaffold(
+            appBar: appBar,
+            // singleChildScrollView add scroll functionality to column
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () => _startAddNewTransaction(context),
+                    child: Icon(Icons.add),
+                  ),
+          );
   }
 }
