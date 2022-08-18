@@ -123,8 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    
     final isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+        mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       centerTitle: true,
@@ -141,9 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final txListWidget = Container(
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              mediaQuery.padding.top) *
           0.7,
       child: TransactionList(_userTransaction, _deleteTransaction),
     );
@@ -181,20 +183,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandScape)
               Container(
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        mediaQuery.padding.top) *
                     0.7,
                 child: Chart(_recentTransactions),
               ),
             if (!isLandScape) txListWidget,
-            // MediaQuery.of(context).padding.top) : this is notification bar height
+            // mediaQuery.padding.top) : this is notification bar height
             if (isLandScape)
               _showChart
                   ? Container(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.7,
                       child: Chart(_recentTransactions),
                     )
