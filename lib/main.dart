@@ -171,7 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Show Chart"),
-                  Switch(
+                  // below adaptive method will automatically convert widget into
+                  // platform default looks
+                  Switch.adaptive(
                     value: _showChart,
                     onChanged: (val) {
                       setState(() {
