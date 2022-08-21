@@ -8,3 +8,13 @@ for example we can add new elements to final list (user_transaction file _addTra
 
 
 ListView = SingleChildScrollView + Column
+
+when we call MediaQuery it is also rebuild the widget as a build method.
+
+const variable initialize compile time and final variables initialize run time
+
+widget tree is full of immutable objects
+
+we can skip unnecessary rebuilds after adding const in front of widget
+
+all stateless widgets are immutable 
