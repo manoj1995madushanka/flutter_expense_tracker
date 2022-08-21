@@ -123,6 +123,55 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // use builder methods for separate content of portrait and landscape
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery,
+      PreferredSize preferredSize, Widget txListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Show Chart",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          // below adaptive method will automatically convert widget into
+          // platform default looks
+          Switch.adaptive(
+            activeColor: Theme.of(context).colorScheme.secondary,
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      preferredSize.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(_recentTransactions),
+            )
+          : txListWidget,
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
+      PreferredSize preferredSize, Widget txListWidget) {
+    return [
+      Container(
+          height: (mediaQuery.size.height -
+                  preferredSize.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.7,
+          child: Chart(_recentTransactions)),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -188,46 +237,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),*/
             if (isLandScape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Show Chart",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  // below adaptive method will automatically convert widget into
-                  // platform default looks
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).colorScheme.secondary,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
+              ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
             if (!isLandScape)
-              Container(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.7,
-                child: Chart(_recentTransactions),
-              ),
-            if (!isLandScape) txListWidget,
-            // mediaQuery.padding.top) : this is notification bar height
-            if (isLandScape)
-              _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_recentTransactions),
-                    )
-                  : txListWidget,
+              // below ... combine returned list of widget to this children list of widget
+              ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
           ],
         ),
       ),
